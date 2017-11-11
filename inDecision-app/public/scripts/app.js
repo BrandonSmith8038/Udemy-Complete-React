@@ -23,6 +23,13 @@ var removeAll = function removeAll() {
     appRender();
 };
 
+var makeDecision = function makeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var selectedOption = app.options[randomNum];
+
+    console.log(selectedOption);
+};
+
 var appRoot = document.getElementById('app');
 
 var numbers = [55, 101, 1000];
@@ -47,18 +54,18 @@ var appRender = function appRender() {
             app.options.length > 0 ? 'Here are your options' : 'No Options'
         ),
         React.createElement(
-            'p',
-            null,
-            app.options.length
+            'button',
+            { className: 'btn btn-dark mr-2', disabled: app.options.length < 1, onClick: makeDecision },
+            'What Should I Do'
         ),
         React.createElement(
             'button',
-            { className: 'btn btn-dark mb-5', onClick: removeAll },
+            { className: 'btn btn-dark', disabled: app.options.length < 1, onClick: removeAll },
             'Remove All'
         ),
         React.createElement(
             'ol',
-            { className: 'list-group' },
+            { className: 'list-group mt-5' },
             app.options.map(function (option) {
                 return React.createElement(
                     'li',

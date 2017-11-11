@@ -22,6 +22,13 @@ const removeAll = () => {
     appRender()
 }
 
+const makeDecision = () => {
+    const randomNum = Math.floor(Math.random() * app.options.length)
+    const selectedOption = app.options[randomNum]
+
+    console.log(selectedOption)
+}
+
 const appRoot = document.getElementById('app');
 
 const numbers = [55, 101, 1000]
@@ -33,9 +40,9 @@ const appRender = () => {
     <h1 className="mt-4">{app.title}</h1>
     {app.subtitle && <p>{app.subtitle}</p>}
     <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
-    <p>{app.options.length}</p>
-    <button className="btn btn-dark mb-5" onClick={removeAll}>Remove All</button>
-    <ol className="list-group">
+    <button className="btn btn-dark mr-2" disabled={app.options.length < 1} onClick={makeDecision}>What Should I Do</button>
+    <button className="btn btn-dark" disabled={app.options.length < 1} onClick={removeAll}>Remove All</button>
+    <ol className="list-group mt-5">
         {
             app.options.map((option) => {
                 return <li className="list-group-item" key={option}>{option}</li>
