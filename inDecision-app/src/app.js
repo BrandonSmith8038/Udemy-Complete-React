@@ -1,6 +1,6 @@
 const app = {
     title: 'My inDecision App',
-    subtitle: 'The Best App Eva',
+    subtitle: 'Put your life in the hands of a computer',
     options: []
 }
 
@@ -24,6 +24,8 @@ const removeAll = () => {
 
 const appRoot = document.getElementById('app');
 
+const numbers = [55, 101, 1000]
+
 const appRender = () => {
     const template = (
 
@@ -32,13 +34,15 @@ const appRender = () => {
     {app.subtitle && <p>{app.subtitle}</p>}
     <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
     <p>{app.options.length}</p>
-    <button className="btn btn-dark" onClick={removeAll}>Remove All</button>
-    <ol>
-        <li>Item One</li>
-        <li>Item Two</li>
-        <li>Item Three</li>
+    <button className="btn btn-dark mb-5" onClick={removeAll}>Remove All</button>
+    <ol className="list-group">
+        {
+            app.options.map((option) => {
+                return <li className="list-group-item" key={option}>{option}</li>
+            })
+        }
     </ol>
-    <form className="form-inline"onSubmit={onFormSubmit}>
+    <form className="form-inline mt-2"onSubmit={onFormSubmit}>
         <div className="form-group">
         <input className="form-control" type="text" name="option" />
         <button className="btn btn-dark">Add Option</button>
