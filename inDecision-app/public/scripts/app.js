@@ -3,94 +3,93 @@
 var app = {
     title: 'My inDecision App',
     subtitle: 'The Best App Eva',
-    options: ['Option One', 'Option Two']
+    options: []
 };
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No Options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item One'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item Two'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item Three'
-        )
-    )
-);
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    e.persist();
 
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
+    var option = e.target.elements.option.value;
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+    }
+    appRender();
 };
 
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
-};
-
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
+var removeAll = function removeAll() {
+    app.options = [];
+    appRender();
 };
 
 var appRoot = document.getElementById('app');
 
-var renderCounterApp = function renderCounterApp() {
-    var template2 = React.createElement(
+var appRender = function appRender() {
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
+            { className: 'mt-4' },
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            'p',
             null,
-            'Count: ',
-            count
+            app.subtitle
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No Options'
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length
         ),
         React.createElement(
             'button',
-            { className: 'btn btn-primary m-3', onClick: addOne },
-            '+1'
+            { className: 'btn btn-dark', onClick: removeAll },
+            'Remove All'
         ),
         React.createElement(
-            'button',
-            { className: 'btn btn-primary m-3', onClick: reset },
-            'Reset'
+            'ol',
+            null,
+            React.createElement(
+                'li',
+                null,
+                'Item One'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'Item Two'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'Item Three'
+            )
         ),
         React.createElement(
-            'button',
-            { className: 'btn btn-primary m-3', onClick: minusOne },
-            '-1'
+            'form',
+            { className: 'form-inline', onSubmit: onFormSubmit },
+            React.createElement(
+                'div',
+                { className: 'form-group' },
+                React.createElement('input', { className: 'form-control', type: 'text', name: 'option' }),
+                React.createElement(
+                    'button',
+                    { className: 'btn btn-dark' },
+                    'Add Option'
+                )
+            )
         )
     );
 
-    ReactDOM.render(template2, appRoot);
+    ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+appRender();
