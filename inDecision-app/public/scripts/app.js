@@ -2,7 +2,7 @@
 
 var app = {
     title: 'My inDecision App',
-    subtitle: 'The Best App Eva',
+    subtitle: 'Put your life in the hands of a computer',
     options: []
 };
 
@@ -24,6 +24,8 @@ var removeAll = function removeAll() {
 };
 
 var appRoot = document.getElementById('app');
+
+var numbers = [55, 101, 1000];
 
 var appRender = function appRender() {
     var template = React.createElement(
@@ -51,31 +53,23 @@ var appRender = function appRender() {
         ),
         React.createElement(
             'button',
-            { className: 'btn btn-dark', onClick: removeAll },
+            { className: 'btn btn-dark mb-5', onClick: removeAll },
             'Remove All'
         ),
         React.createElement(
             'ol',
-            null,
-            React.createElement(
-                'li',
-                null,
-                'Item One'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item Two'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item Three'
-            )
+            { className: 'list-group' },
+            app.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { className: 'list-group-item', key: option },
+                    option
+                );
+            })
         ),
         React.createElement(
             'form',
-            { className: 'form-inline', onSubmit: onFormSubmit },
+            { className: 'form-inline mt-2', onSubmit: onFormSubmit },
             React.createElement(
                 'div',
                 { className: 'form-group' },
