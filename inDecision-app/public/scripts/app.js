@@ -1,7 +1,5 @@
 'use strict';
 
-var appRoot = document.getElementById('app');
-
 var app = {
     title: 'My inDecision App',
     subtitle: 'The Best App Eva',
@@ -49,40 +47,50 @@ var template = React.createElement(
 
 var count = 0;
 var addOne = function addOne() {
-    console.log('Add One');
+    count++;
+    renderCounterApp();
 };
 
 var minusOne = function minusOne() {
-    console.log('Minus One');
+    count--;
+    renderCounterApp();
 };
 
 var reset = function reset() {
-    console.log('Reset');
+    count = 0;
+    renderCounterApp();
 };
-var template2 = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
+
+var appRoot = document.getElementById('app');
+
+var renderCounterApp = function renderCounterApp() {
+    var template2 = React.createElement(
+        'div',
         null,
-        'Count: ',
-        count
-    ),
-    React.createElement(
-        'button',
-        { onClick: addOne },
-        '+1'
-    ),
-    React.createElement(
-        'button',
-        { onClick: reset },
-        'Reset'
-    ),
-    React.createElement(
-        'button',
-        { onClick: minusOne },
-        '-1'
-    )
-);
-console.log(template2);
-ReactDOM.render(template2, appRoot);
+        React.createElement(
+            'h1',
+            null,
+            'Count: ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { className: 'btn btn-primary m-3', onClick: addOne },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { className: 'btn btn-primary m-3', onClick: reset },
+            'Reset'
+        ),
+        React.createElement(
+            'button',
+            { className: 'btn btn-primary m-3', onClick: minusOne },
+            '-1'
+        )
+    );
+
+    ReactDOM.render(template2, appRoot);
+};
+
+renderCounterApp();

@@ -1,5 +1,3 @@
-const appRoot = document.getElementById('app');
-
 const app = {
     title: 'My inDecision App',
     subtitle: 'The Best App Eva',
@@ -23,23 +21,35 @@ const template = (
 
 let count = 0
 const addOne = () => {
-    console.log('Add One')
+    count++
+    renderCounterApp();
 }
 
 const minusOne = () => {
-    console.log('Minus One')
+    count--
+    renderCounterApp();
 }
 
 const reset = () => {
-    console.log('Reset')
+    count = 0
+    renderCounterApp();
 }
-const template2 = (
-    <div>
+
+
+const appRoot = document.getElementById('app');
+
+const renderCounterApp = () => {
+    const template2 = (
+        <div>
         <h1>Count: {count}</h1>
-        <button onClick={addOne}>+1</button>
-        <button onClick={reset}>Reset</button>
-        <button onClick={minusOne}>-1</button>
-    </div>
-)
-console.log(template2)
-ReactDOM.render(template2, appRoot)
+            <button className="btn btn-primary m-3" onClick={addOne}>+1</button>
+            <button className="btn btn-primary m-3" onClick={reset}>Reset</button>
+            <button className="btn btn-primary m-3" onClick={minusOne}>-1</button>
+        </div>
+    )
+
+    ReactDOM.render(template2, appRoot)
+
+}
+
+renderCounterApp();
