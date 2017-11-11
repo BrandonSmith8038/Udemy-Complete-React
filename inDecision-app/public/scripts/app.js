@@ -1,84 +1,88 @@
 'use strict';
 
-// arguments object - no longer bound with arrow functions
+var appRoot = document.getElementById('app');
 
-var add = function add(a, b) {
-    console.log(arguments);
-    return a + b;
-};
-console.log(add(55, 1));
-
-var arrowAdd = function arrowAdd(a, b) {
-    //Wont' Run
-    //console.log(arguments)
-    return a + b;
-};
-console.log(arrowAdd(55, 1));
-
-// this keyword - no longer boud
-var user = {
-    name: 'Brandon',
-    cities: ['Phoenix', 'Goodyear', 'Wittmann'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        console.log(this.name);
-        console.log(this.cities);
-
-        // //Won't Run = This Not Bound
-        // this.cities.forEach(function(city) {
-        //     console.log(this.name + ' has lived in' + city)
-        // })
-
-        this.cities.forEach(function (city) {
-            console.log(_this.name + ' has lived in ' + city);
-        });
-    }
+var app = {
+    title: 'My inDecision App',
+    subtitle: 'The Best App Eva',
+    options: ['Option One', 'Option Two']
 };
 
-user.printPlacesLived();
+var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h1',
+        null,
+        app.title
+    ),
+    app.subtitle && React.createElement(
+        'p',
+        null,
+        app.subtitle
+    ),
+    React.createElement(
+        'p',
+        null,
+        app.options.length > 0 ? 'Here are your options' : 'No Options'
+    ),
+    React.createElement(
+        'ol',
+        null,
+        React.createElement(
+            'li',
+            null,
+            'Item One'
+        ),
+        React.createElement(
+            'li',
+            null,
+            'Item Two'
+        ),
+        React.createElement(
+            'li',
+            null,
+            'Item Three'
+        )
+    )
+);
 
-//Methods Definition Syntax
-
-var user2 = {
-    name: 'Brandon',
-    cities: ['Phoenix', 'Goodyear', 'Wittmann'],
-    placesLived: function placesLived() {
-        var _this2 = this;
-
-        this.cities.forEach(function (city) {
-            console.log('For Each ', _this2.name + ' has lived in ' + city);
-        });
-    }
+var count = 0;
+var addOne = function addOne() {
+    console.log('Add One');
 };
-user2.placesLived();
 
-//.map() - Gives you a new array allowing you transform before using
-var user3 = {
-    name: 'Brandon',
-    cities: ['Phoenix', 'Goodyear', 'Wittmann'],
-    placesLived: function placesLived() {
-        var _this3 = this;
-
-        return this.cities.map(function (city) {
-            return _this3.name + ' has lived in ' + city;
-        });
-    }
-};
-console.log(user3.placesLived());
-
-// Challenge Area
-
-var multiplier = {
-    numbers: [1, 2, 3],
-    multiplyBy: 2,
-    multiply: function multiply() {
-        var _this4 = this;
-
-        return this.numbers.map(function (num) {
-            return num * _this4.multiplyBy;
-        });
-    }
+var minusOne = function minusOne() {
+    console.log('Minus One');
 };
 
-console.log(multiplier.multiply());
+var reset = function reset() {
+    console.log('Reset');
+};
+var template2 = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h1',
+        null,
+        'Count: ',
+        count
+    ),
+    React.createElement(
+        'button',
+        { onClick: addOne },
+        '+1'
+    ),
+    React.createElement(
+        'button',
+        { onClick: reset },
+        'Reset'
+    ),
+    React.createElement(
+        'button',
+        { onClick: minusOne },
+        '-1'
+    )
+);
+console.log(template2);
+ReactDOM.render(template2, appRoot);
