@@ -1,85 +1,25 @@
 'use strict';
 
-var appRoot = document.getElementById('app');
+// function squared(num) {
+//     return num * num
+// }
 
-var app = {
-    title: 'My inDecision App',
-    subtitle: 'The Best App Eva',
-    options: ['Option One', 'Option Two']
+// console.log(squared(5))
+
+// const arrowSquared = (num) => {
+//     return num * num
+// }
+// console.log(arrowSquared(5))
+
+// const expressionSquare = (num) => num * num
+// console.log(expressionSquare(5))
+
+var getFirstNameVerbose = function getFirstNameVerbose(fullName) {
+    return fullName.split(' ')[0];
 };
+console.log('First Name Verbose: ', getFirstNameVerbose('Brandon Smith'));
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No Options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item One'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item Two'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item Three'
-        )
-    )
-);
-
-var user = {
-    name: 'Brandon',
-    age: 18,
-    location: 'Goodyear,AZ'
+var getFirstNameExpression = function getFirstNameExpression(fullName) {
+    return fullName.split(' ')[0];
 };
-
-function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'Location: ',
-            location
-        );
-    }
-}
-
-var template2 = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        'Name: ',
-        user.name ? user.name : 'Anonymous'
-    ),
-    user.age && user.age > 17 && React.createElement(
-        'p',
-        null,
-        'Age: ',
-        user.age
-    ),
-    getLocation(user.location)
-);
-
-ReactDOM.render(template, appRoot);
+console.log('First Name Expression: ', getFirstNameExpression('Brandon Smith'));
