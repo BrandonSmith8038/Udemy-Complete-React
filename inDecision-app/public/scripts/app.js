@@ -80,6 +80,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: "handlePick",
+        value: function handlePick() {
+            alert('handlePick');
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
@@ -87,7 +92,7 @@ var Action = function (_React$Component3) {
                 { className: "mb-3" },
                 React.createElement(
                     "button",
-                    { className: "d-block mx-auto btn btn-dark" },
+                    { className: "d-block mx-auto btn btn-dark", onClick: this.handlePick },
                     "What Should I Do?"
                 )
             );
@@ -107,14 +112,24 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
+        key: "handleRemove",
+        value: function handleRemove() {
+            alert('Handle Remove');
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
-                { className: "text-center mb-3" },
+                { className: "mb-3" },
+                React.createElement(
+                    "button",
+                    { onClick: this.handleRemove, className: "btn btn-dark" },
+                    "Remove All Options"
+                ),
                 React.createElement(
                     "ul",
-                    { className: "list-group" },
+                    { className: "text-center list-group" },
                     this.props.options.map(function (option) {
                         return React.createElement(Option, { key: option, optionText: option });
                     })
@@ -159,15 +174,38 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: "handleAddOption",
+        value: function handleAddOption(e) {
+            e.preventDefault();
+            e.persist();
+
+            var option = e.target.elements.option.value.trim();
+
+            if (option) {
+                //InDecisionApp.options.push(option)
+                e.target.elements.option.value = '';
+                console.log(option);
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
                 null,
                 React.createElement(
-                    "button",
-                    { className: "btn btn-dark" },
-                    "Add Option"
+                    "form",
+                    { className: "form-inline float-right mt-2", onSubmit: this.handleAddOption },
+                    React.createElement(
+                        "div",
+                        { className: "form-group" },
+                        React.createElement("input", { className: "form-control", type: "text", name: "option" }),
+                        React.createElement(
+                            "button",
+                            { className: "btn btn-dark" },
+                            "Add Option"
+                        )
+                    )
                 )
             );
         }

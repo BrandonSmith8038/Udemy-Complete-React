@@ -33,11 +33,15 @@ class Header extends React.Component {
 
 class Action extends React.Component {
 
+    handlePick() {
+        alert('handlePick')
+    }
+
     render() {
         return (
 
             <div className="mb-3">
-                <button className="d-block mx-auto btn btn-dark">What Should I Do?</button>
+                <button className="d-block mx-auto btn btn-dark" onClick={this.handlePick}>What Should I Do?</button>
             </div>
 
         )
@@ -46,10 +50,15 @@ class Action extends React.Component {
 
 class Options extends React.Component {
 
+    handleRemove() {
+        alert('Handle Remove')
+    }
+
     render() {
         return (
-            <div className="text-center mb-3">
-                <ul className="list-group">
+            <div className="mb-3">
+                <button onClick={this.handleRemove} className="btn btn-dark">Remove All Options</button>
+                <ul className="text-center list-group">
                     {
                         this.props.options.map((option) => {
                             return <Option key={option} optionText={option} />
@@ -72,10 +81,28 @@ class Option extends React.Component {
 
 class AddOption extends React.Component {
 
+    handleAddOption(e) {
+        e.preventDefault();
+        e.persist()
+
+        const option = e.target.elements.option.value.trim()
+
+        if (option) {
+            //InDecisionApp.options.push(option)
+            e.target.elements.option.value = ''
+            console.log(option)
+        }
+    }
+
     render() {
         return (
             <div>
-                <button className="btn btn-dark">Add Option</button>
+               <form className="form-inline float-right mt-2" onSubmit={this.handleAddOption}>
+                    <div className="form-group">
+                        <input className="form-control" type="text" name="option" />
+                        <button className="btn btn-dark">Add Option</button>
+                    </div>
+                </form>
             </div>
         )
     }
