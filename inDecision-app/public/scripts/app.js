@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19,49 +19,69 @@ var Counter = function (_React$Component) {
         _this.handleAddClick = _this.handleAddClick.bind(_this);
         _this.handleMinusClick = _this.handleMinusClick.bind(_this);
         _this.handleResetClick = _this.handleResetClick.bind(_this);
+
+        _this.state = {
+            count: 0
+        };
         return _this;
     }
 
     _createClass(Counter, [{
-        key: 'handleAddClick',
+        key: "handleAddClick",
         value: function handleAddClick() {
-            console.log('handleAddClick');
+
+            this.setState(function (prevState) {
+                return {
+                    count: prevState.count + 1
+                };
+            });
         }
     }, {
-        key: 'handleResetClick',
+        key: "handleResetClick",
         value: function handleResetClick() {
-            console.log('handleResetClick');
+
+            this.setState(function () {
+                return {
+                    count: 0
+                };
+            });
         }
     }, {
-        key: 'handleMinusClick',
-        value: function handleMinusClick() {
-            console.log('handleMinusClick');
+        key: "handleMinusClick",
+        value: function handleMinusClick(prevState) {
+
+            this.setState(function (prevState) {
+                return {
+                    count: prevState.count - 1
+                };
+            });
         }
     }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(
-                    'h1',
+                    "h1",
                     null,
-                    'Count:'
+                    "Count: ",
+                    this.state.count
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleAddClick, className: 'btn btn-dark mr-3' },
-                    '+1'
+                    "button",
+                    { onClick: this.handleAddClick, className: "btn btn-dark mr-3" },
+                    "+1"
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleResetClick, className: 'btn btn-dark mr-3' },
-                    'Reset'
+                    "button",
+                    { onClick: this.handleResetClick, className: "btn btn-dark mr-3" },
+                    "Reset"
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleMinusClick, className: 'btn btn-dark mr-3' },
-                    '-1'
+                    "button",
+                    { onClick: this.handleMinusClick, className: "btn btn-dark mr-3" },
+                    "-1"
                 )
             );
         }
