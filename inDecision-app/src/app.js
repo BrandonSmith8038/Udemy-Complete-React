@@ -50,8 +50,15 @@ class Action extends React.Component {
 
 class Options extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.handleRemove = this.handleRemove.bind(this)
+    }
+
     handleRemove() {
-        alert('Handle Remove')
+
+        console.log(this.props.options)
+        //alert('Handle Remove')
     }
 
     render() {
@@ -88,7 +95,7 @@ class AddOption extends React.Component {
         const option = e.target.elements.option.value.trim()
 
         if (option) {
-            //InDecisionApp.options.push(option)
+            InDecisionApp.options.push(option)
             e.target.elements.option.value = ''
             console.log(option)
         }
