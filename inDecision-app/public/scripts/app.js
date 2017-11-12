@@ -20,13 +20,16 @@ var InDecisionApp = function (_React$Component) {
     _createClass(InDecisionApp, [{
         key: "render",
         value: function render() {
+            var title = "inDecision App";
+            var subtitle = "Put your life in the hands of a computer!";
+            var options = ['Thing 1', 'Thing 2', 'Thing 34', 'Thing 4'];
 
             return React.createElement(
                 "div",
                 null,
-                React.createElement(Header, null),
+                React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, null),
-                React.createElement(Options, null),
+                React.createElement(Options, { options: options }),
                 React.createElement(AddOption, null)
             );
         }
@@ -53,12 +56,12 @@ var Header = function (_React$Component2) {
                 React.createElement(
                     "h1",
                     { className: "mt-5" },
-                    "inDecision"
+                    this.props.title
                 ),
                 React.createElement(
                     "h2",
                     null,
-                    "Put Your Life In The Hands Of A Computer!"
+                    this.props.subtitle
                 )
             );
         }
@@ -112,11 +115,9 @@ var Options = function (_React$Component4) {
                 React.createElement(
                     "ul",
                     { className: "list-group" },
-                    React.createElement(Option, null),
-                    React.createElement(Option, null),
-                    React.createElement(Option, null),
-                    React.createElement(Option, null),
-                    React.createElement(Option, null)
+                    this.props.options.map(function (option) {
+                        return React.createElement(Option, { key: option, optionText: option });
+                    })
                 )
             );
         }
@@ -140,7 +141,7 @@ var Option = function (_React$Component5) {
             return React.createElement(
                 "li",
                 { className: "list-group-item" },
-                "Option"
+                this.props.optionText
             );
         }
     }]);
