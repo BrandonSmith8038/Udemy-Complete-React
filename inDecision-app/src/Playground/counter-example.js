@@ -1,34 +1,72 @@
-let count = 0
-const addOne = () => {
-    count++
-    renderCounterApp();
+class Counter extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.handleAddClick = this.handleAddClick.bind(this)
+        this.handleMinusClick = this.handleMinusClick.bind(this)
+        this.handleResetClick = this.handleResetClick.bind(this)
+    }
+
+    handleAddClick() {
+        console.log('handleAddClick')
+    }
+
+    handleResetClick() {
+        console.log('handleResetClick')
+    }
+
+    handleMinusClick() {
+        console.log('handleMinusClick')
+    }
+
+    render() {
+        return (
+            <div>
+            <h1>Count:</h1>
+            <button onClick={this.handleAddClick} className="btn btn-dark mr-3">+1</button>
+            <button onClick={this.handleResetClick} className="btn btn-dark mr-3">Reset</button>
+            <button onClick={this.handleMinusClick} className="btn btn-dark mr-3">-1</button>
+            </div>
+        )
+    }
 }
 
-const minusOne = () => {
-    count--
-    renderCounterApp();
-}
 
-const reset = () => {
-    count = 0
-    renderCounterApp();
-}
+ReactDOM.render(<Counter />, document.getElementById('app'))
 
 
+// let count = 0
+// const addOne = () => {
+//     count++
+//     renderCounterApp();
+// }
+
+// const minusOne = () => {
+//     count--
+//     renderCounterApp();
+// }
+
+// const reset = () => {
+//     count = 0
+//     renderCounterApp();
+// }
 
 
-const renderCounterApp = () => {
-    const template2 = (
-        <div>
-        <h1>Count: {count}</h1>
-            <button className="btn btn-primary m-3" onClick={addOne}>+1</button>
-            <button className="btn btn-primary m-3" onClick={reset}>Reset</button>
-            <button className="btn btn-primary m-3" onClick={minusOne}>-1</button>
-        </div>
-    )
 
-    ReactDOM.render(template2, appRoot)
 
-}
+// const renderCounterApp = () => {
+//     const template2 = (
+//         <div>
+//         <h1>Count: {count}</h1>
+//             <button className="btn btn-primary m-3" onClick={addOne}>+1</button>
+//             <button className="btn btn-primary m-3" onClick={reset}>Reset</button>
+//             <button className="btn btn-primary m-3" onClick={minusOne}>-1</button>
+//         </div>
+//     )
 
-renderCounterApp();
+//     ReactDOM.render(template2, appRoot)
+
+// }
+
+// renderCounterApp();

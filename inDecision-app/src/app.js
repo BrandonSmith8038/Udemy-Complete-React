@@ -95,7 +95,7 @@ class AddOption extends React.Component {
         const option = e.target.elements.option.value.trim()
 
         if (option) {
-            InDecisionApp.options.push(option)
+            //InDecisionApp.options.push(option)
             e.target.elements.option.value = ''
             console.log(option)
         }
