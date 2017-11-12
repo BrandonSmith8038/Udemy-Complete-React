@@ -1,61 +1,96 @@
-class Person {
-    constructor(name = 'Anonymous', age = 0) {
-        this.name = name
-        this.age = age
+'use strict';
+
+var app = {
+    title: 'My inDecision App',
+    subtitle: 'Put your life in the hands of a computer',
+    options: []
+};
+
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    e.persist();
+
+    var option = e.target.elements.option.value;
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
     }
+    appRender();
+};
 
-    getGreeting() {
-        return `Hi, I am ${this.name}!`
-    }
+var removeAll = function removeAll() {
+    app.options = [];
+    appRender();
+};
 
-    getDescription() {
-        return `${this.name} is ${this.age} year(s) old.`
-    }
-}
+var makeDecision = function makeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var selectedOption = app.options[randomNum];
 
-class Student extends Person {
-    constructor(name, age, major) {
-        super(name, age)
-        this.major = major
-    }
+    console.log(selectedOption);
+};
 
-    hasMajor() {
-        return !!this.major
-    }
+var appRoot = document.getElementById('app');
 
-    getDescription() {
-        let description = super.getDescription()
-        if (this.hasMajor()) {
-            description += ` Thier major is ${this.major}.`
-        }
-        return description
-    }
-}
+var numbers = [55, 101, 1000];
 
-class Traveler extends Person {
-    constructor(name, age, location) {
-        super(name, age)
-        this.location = location
-    }
+var appRender = function appRender() {
+    var template = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            { className: 'mt-4' },
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            'p',
+            null,
+            app.subtitle
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No Options'
+        ),
+        React.createElement(
+            'button',
+            { className: 'btn btn-dark mr-2', disabled: app.options.length < 1, onClick: makeDecision },
+            'What Should I Do'
+        ),
+        React.createElement(
+            'button',
+            { className: 'btn btn-dark', disabled: app.options.length < 1, onClick: removeAll },
+            'Remove All'
+        ),
+        React.createElement(
+            'ol',
+            { className: 'list-group mt-5' },
+            app.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { className: 'list-group-item', key: option },
+                    option
+                );
+            })
+        ),
+        React.createElement(
+            'form',
+            { className: 'form-inline mt-2', onSubmit: onFormSubmit },
+            React.createElement(
+                'div',
+                { className: 'form-group' },
+                React.createElement('input', { className: 'form-control', type: 'text', name: 'option' }),
+                React.createElement(
+                    'button',
+                    { className: 'btn btn-dark' },
+                    'Add Option'
+                )
+            )
+        )
+    );
 
-    hasLocation() {
-        return !!this.location
-    }
+    ReactDOM.render(template, appRoot);
+};
 
-    getGreeting() {
-        let greeting = super.getGreeting()
-        if (this.hasLocation()) {
-            greeting += ` I'm visiting from ${this.location}.`
-        }
-        return greeting
-    }
-}
-
-
-
-
-const me = new Traveler('Brandon', 31, 'Italy')
-console.log(me.getGreeting())
-
-const other = new Traveler()
-console.log(other.getGreeting())
+appRender();
