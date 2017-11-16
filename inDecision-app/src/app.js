@@ -8,7 +8,7 @@ class InDecisionApp extends React.Component {
         this.handlePick = this.handlePick.bind(this)
 
         this.state = {
-            options: ['Thing 1', 'Thing 2', 'Thing 34', 'Thing 4']
+            options: []
         }
     }
 
@@ -21,9 +21,17 @@ class InDecisionApp extends React.Component {
     }
 
     handleAddOption(option) {
+
+        if (!option) {
+            return 'Enter valid value to add item'
+        }
+        else if (this.state.options.indexOf(option) > -1) {
+            return 'This option already exists'
+        }
+
         this.setState((prevState) => {
             return {
-                options: prevState.options.push('a')
+                options: prevState.options.concat(option)
             }
         })
     }
@@ -125,23 +133,35 @@ class Option extends React.Component {
 
 class AddOption extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.handleAddOption = this.handleAddOption.bind(this)
+
+        this.state = {
+            error: undefined
+        }
+    }
+
     handleAddOption(e) {
         e.preventDefault();
         e.persist()
 
         const option = e.target.elements.option.value.trim()
+        const error = this.props.handleAddOption(option)
 
-        if (option) {
-            //InDecisionApp.options.push(option)
-            e.target.elements.option.value = ''
-            console.log(option)
-        }
+        this.setState(() => {
+            return { error }
+        })
+
+        // this.props.handleAddOption(option)
+
     }
 
     render() {
         return (
             <div>
-               <form className="form-inline float-right mt-2" onSubmit={this.props.handleAddOption}>
+                {this.state.error && <p className="alert alert-danger">{this.state.error}</p>}
+               <form className="form-inline float-right mt-2" onSubmit={this.handleAddOption}>
                     <div className="form-group">
                         <input className="form-control" type="text" name="option" />
                         <button className="btn btn-dark">Add Option</button>
