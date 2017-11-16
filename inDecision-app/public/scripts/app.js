@@ -8,249 +8,71 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var InDecisionApp = function (_React$Component) {
-    _inherits(InDecisionApp, _React$Component);
+var Counter = function (_React$Component) {
+    _inherits(Counter, _React$Component);
 
-    function InDecisionApp(props) {
-        _classCallCheck(this, InDecisionApp);
+    function Counter(props) {
+        _classCallCheck(this, Counter);
 
-        var _this = _possibleConstructorReturn(this, (InDecisionApp.__proto__ || Object.getPrototypeOf(InDecisionApp)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
 
-        _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
-        _this.handleAddOption = _this.handleAddOption.bind(_this);
-        _this.handlePick = _this.handlePick.bind(_this);
-        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
+        _this.handleAddClick = _this.handleAddClick.bind(_this);
+        _this.handleMinusClick = _this.handleMinusClick.bind(_this);
+        _this.handleResetClick = _this.handleResetClick.bind(_this);
 
         _this.state = {
-            options: props.options
+            count: 0
         };
         return _this;
     }
 
-    _createClass(InDecisionApp, [{
+    _createClass(Counter, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            try {
-                var json = localStorage.getItem('options');
-                var options = JSON.parse(json);
+            var count = parseInt(localStorage.getItem('count'));
 
-                if (options) {
-                    this.setState(function () {
-                        return { options: options };
-                    });
-                }
-            } catch (e) {
-                //Do Nothing At ALL
-
+            if (!isNaN(count)) {
+                this.setState(function () {
+                    return { count: count };
+                });
             }
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            if (prevState.options.length !== this.state.options.length) {
-                var json = JSON.stringify(this.state.options);
-
-                localStorage.setItem('options', json);
+            if (prevState.count !== this.state.count) {
+                localStorage.setItem('count', this.state.count);
             }
         }
     }, {
-        key: 'handleDeleteOptions',
-        value: function handleDeleteOptions() {
+        key: 'handleAddClick',
+        value: function handleAddClick() {
 
-            this.setState(function () {
-                return { options: [] };
-            });
-        }
-    }, {
-        key: 'handleDeleteOption',
-        value: function handleDeleteOption(optionToRemove) {
             this.setState(function (prevState) {
                 return {
-                    options: prevState.options.filter(function (option) {
-                        return optionToRemove !== option ? true : false;
-                    })
+                    count: prevState.count + 1
                 };
             });
         }
     }, {
-        key: 'handleAddOption',
-        value: function handleAddOption(option) {
+        key: 'handleResetClick',
+        value: function handleResetClick() {
 
-            if (!option) {
-                return 'Enter valid value to add item';
-            } else if (this.state.options.indexOf(option) > -1) {
-                return 'This option already exists';
-            }
+            this.setState(function () {
+                return {
+                    count: 0
+                };
+            });
+        }
+    }, {
+        key: 'handleMinusClick',
+        value: function handleMinusClick(prevState) {
 
             this.setState(function (prevState) {
-                return { options: prevState.options.concat(option) };
+                return {
+                    count: prevState.count - 1
+                };
             });
-        }
-    }, {
-        key: 'handlePick',
-        value: function handlePick() {
-            var randomNum = Math.floor(Math.random() * this.state.options.length);
-            var selectedOption = this.state.options[randomNum];
-
-            alert(selectedOption);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var subtitle = "Put your life in the hands of a computer!";
-
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(Header, {
-                    subtitle: subtitle
-                }),
-                React.createElement(Action, {
-                    hasOptions: this.state.options.length > 0,
-                    handlePick: this.handlePick
-                }),
-                React.createElement(Options, {
-                    options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions,
-                    handleDeleteOption: this.handleDeleteOption
-                }),
-                React.createElement(AddOption, {
-                    handleAddOption: this.handleAddOption
-                })
-            );
-        }
-    }]);
-
-    return InDecisionApp;
-}(React.Component);
-
-InDecisionApp.defaultProps = {
-    options: []
-};
-
-var Header = function Header(props) {
-    return React.createElement(
-        'div',
-        { className: 'text-center mb-3' },
-        React.createElement(
-            'h1',
-            { className: 'mt-5' },
-            props.title
-        ),
-        props.subtitle && React.createElement(
-            'h2',
-            null,
-            props.subtitle
-        )
-    );
-};
-
-Header.defaultProps = {
-    title: 'inDecision'
-};
-
-var Action = function Action(props) {
-    return React.createElement(
-        'div',
-        { className: 'mb-3' },
-        React.createElement(
-            'button',
-            {
-                className: 'd-block mx-auto btn btn-dark',
-                onClick: props.handlePick,
-                disabled: !props.hasOptions
-            },
-            'What Should I Do?'
-        )
-    );
-};
-
-var Options = function Options(props) {
-    return React.createElement(
-        'div',
-        { className: 'mb-3' },
-        React.createElement(
-            'button',
-            { onClick: props.handleDeleteOptions, className: 'btn btn-dark mb-3' },
-            'Remove All Options'
-        ),
-        props.options.length === 0 && React.createElement(
-            'h1',
-            {
-                className: 'display-5 text-center text-uppercase p-5' },
-            'Please add an option to get started!'
-        ),
-        React.createElement(
-            'ul',
-            { className: 'text-center list-group' },
-            props.options.map(function (option) {
-                return React.createElement(Option, {
-                    key: option,
-                    optionText: option,
-                    handleDeleteOption: props.handleDeleteOption });
-            })
-        )
-    );
-};
-
-var Option = function Option(props) {
-    return React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'li',
-            { className: 'list-group-item' },
-            props.optionText,
-            React.createElement(
-                'button',
-                {
-                    className: 'btn btn-link float-right',
-                    onClick: function onClick(e) {
-                        props.handleDeleteOption(props.optionText);
-                    }
-                },
-                'Remove'
-            )
-        )
-    );
-};
-
-var AddOption = function (_React$Component2) {
-    _inherits(AddOption, _React$Component2);
-
-    function AddOption(props) {
-        _classCallCheck(this, AddOption);
-
-        var _this2 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
-
-        _this2.handleAddOption = _this2.handleAddOption.bind(_this2);
-
-        _this2.state = {
-            error: undefined
-        };
-        return _this2;
-    }
-
-    _createClass(AddOption, [{
-        key: 'handleAddOption',
-        value: function handleAddOption(e) {
-            e.preventDefault();
-            e.persist();
-
-            var option = e.target.elements.option.value.trim();
-            var error = this.props.handleAddOption(option);
-
-            this.setState(function () {
-                return { error: error };
-            });
-
-            this.setState(function () {
-                return { error: error };
-            });
-
-            if (!error) {
-                e.target.elements.option.value = '';
-            }
         }
     }, {
         key: 'render',
@@ -258,30 +80,65 @@ var AddOption = function (_React$Component2) {
             return React.createElement(
                 'div',
                 null,
-                this.state.error && React.createElement(
-                    'p',
-                    { className: 'alert alert-danger' },
-                    this.state.error
+                React.createElement(
+                    'h1',
+                    null,
+                    'Count: ',
+                    this.state.count
                 ),
                 React.createElement(
-                    'form',
-                    { className: 'form-inline float-right mt-2', onSubmit: this.handleAddOption },
-                    React.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        React.createElement('input', { className: 'form-control', type: 'text', name: 'option' }),
-                        React.createElement(
-                            'button',
-                            { className: 'btn btn-dark' },
-                            'Add Option'
-                        )
-                    )
+                    'button',
+                    { onClick: this.handleAddClick, className: 'btn btn-dark mr-3' },
+                    '+1'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleResetClick, className: 'btn btn-dark mr-3' },
+                    'Reset'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleMinusClick, className: 'btn btn-dark mr-3' },
+                    '-1'
                 )
             );
         }
     }]);
 
-    return AddOption;
+    return Counter;
 }(React.Component);
 
-ReactDOM.render(React.createElement(InDecisionApp, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Counter, null), document.getElementById('app'));
+
+// let count = 0
+// const addOne = () => {
+//     count++
+//     renderCounterApp();
+// }
+
+// const minusOne = () => {
+//     count--
+//     renderCounterApp();
+// }
+
+// const reset = () => {
+//     count = 0
+//     renderCounterApp();
+// }
+
+
+// const renderCounterApp = () => {
+//     const template2 = (
+//         <div>
+//         <h1>Count: {count}</h1>
+//             <button className="btn btn-primary m-3" onClick={addOne}>+1</button>
+//             <button className="btn btn-primary m-3" onClick={reset}>Reset</button>
+//             <button className="btn btn-primary m-3" onClick={minusOne}>-1</button>
+//         </div>
+//     )
+
+//     ReactDOM.render(template2, appRoot)
+
+// }
+
+// renderCounterApp();

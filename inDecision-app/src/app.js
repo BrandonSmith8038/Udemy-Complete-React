@@ -9,7 +9,7 @@ class InDecisionApp extends React.Component {
         this.handleDeleteOption = this.handleDeleteOption.bind(this)
 
         this.state = {
-            options: props.options
+            options: []
         }
     }
 
@@ -91,9 +91,6 @@ class InDecisionApp extends React.Component {
     }
 }
 
-InDecisionApp.defaultProps = {
-    options: []
-}
 
 const Header = (props) => {
     return (
