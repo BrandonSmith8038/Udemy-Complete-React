@@ -13,6 +13,29 @@ class InDecisionApp extends React.Component {
         }
     }
 
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('options')
+            const options = JSON.parse(json)
+
+            if (options) {
+                this.setState(() => ({ options }))
+            }
+        }
+        catch (e) {
+            //Do Nothing At ALL
+
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options)
+
+            localStorage.setItem('options', json)
+        }
+    }
+
     handleDeleteOptions() {
 
         this.setState(() => ({ options: [] }))
@@ -20,11 +43,7 @@ class InDecisionApp extends React.Component {
 
     handleDeleteOption(optionToRemove) {
         this.setState((prevState) => ({
-
-            options: prevState.options.filter((option) => {
-                return optionToRemove !== option ? true : false
-            })
-
+            options: prevState.options.filter((option) => optionToRemove !== option ? true : false)
         }))
     }
 
@@ -107,7 +126,11 @@ const Action = (props) => {
 const Options = (props) => {
     return (
         <div className="mb-3">
-            <button onClick={props.handleDeleteOptions} className="btn btn-dark">Remove All Options</button>
+            <button onClick={props.handleDeleteOptions} className="btn btn-dark mb-3">Remove All Options</button>
+            {props.options.length === 0 && <h1 
+                className="display-5 text-center text-uppercase p-5">
+                Please add an option to get started!
+            </h1>}
             <ul className="text-center list-group">
                 {props.options.map((option) => {
                     return <Option 
@@ -125,7 +148,7 @@ const Option = (props) => {
         <div>
             <li className="list-group-item">{props.optionText}
                 <button
-                    className="btn btn-light float-right"
+                    className="btn btn-link float-right"
                     onClick={(e) => {
                         props.handleDeleteOption(props.optionText)
                     }}
@@ -161,7 +184,9 @@ class AddOption extends React.Component {
 
         this.setState(() => ({ error }))
 
-        // this.props.handleAddOption(option)
+        if (!error) {
+            e.target.elements.option.value = ''
+        }
 
     }
 
