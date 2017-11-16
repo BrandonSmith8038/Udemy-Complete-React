@@ -28,6 +28,32 @@ var InDecisionApp = function (_React$Component) {
     }
 
     _createClass(InDecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                //Do Nothing At ALL
+
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+
+                localStorage.setItem('options', json);
+            }
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
 
@@ -40,11 +66,9 @@ var InDecisionApp = function (_React$Component) {
         value: function handleDeleteOption(optionToRemove) {
             this.setState(function (prevState) {
                 return {
-
                     options: prevState.options.filter(function (option) {
                         return optionToRemove !== option ? true : false;
                     })
-
                 };
             });
         }
@@ -147,8 +171,14 @@ var Options = function Options(props) {
         { className: 'mb-3' },
         React.createElement(
             'button',
-            { onClick: props.handleDeleteOptions, className: 'btn btn-dark' },
+            { onClick: props.handleDeleteOptions, className: 'btn btn-dark mb-3' },
             'Remove All Options'
+        ),
+        props.options.length === 0 && React.createElement(
+            'h1',
+            {
+                className: 'display-5 text-center text-uppercase p-5' },
+            'Please add an option to get started!'
         ),
         React.createElement(
             'ul',
@@ -174,7 +204,7 @@ var Option = function Option(props) {
             React.createElement(
                 'button',
                 {
-                    className: 'btn btn-light float-right',
+                    className: 'btn btn-link float-right',
                     onClick: function onClick(e) {
                         props.handleDeleteOption(props.optionText);
                     }
@@ -218,7 +248,9 @@ var AddOption = function (_React$Component2) {
                 return { error: error };
             });
 
-            // this.props.handleAddOption(option)
+            if (!error) {
+                e.target.elements.option.value = '';
+            }
         }
     }, {
         key: 'render',
