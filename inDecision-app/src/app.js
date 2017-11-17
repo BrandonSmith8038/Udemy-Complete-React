@@ -1,18 +1,7 @@
-/*import './utils.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import validator from 'validator'
 
-import subtract, { square, add } from './utils.js'
+const template = React.createElement('p', {}, 'testing 123')
 
-console.log('App.js Is Running')
-
-
-console.log('square', square(4))
-console.log('add', add(10, 15))
-
-console.log('Subtract', subtract(23, 7))*/
-
-
-import isSenior, { isAdult, canDrink } from './person.js'
-
-console.log('isAdult', isAdult(19))
-console.log('canDrink', canDrink(23))
-console.log('isSenior', isSenior(31))
+ReactDOM.render(template, document.getElementById('app'))
