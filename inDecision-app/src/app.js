@@ -1,7 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import validator from 'validator'
+import InDecisionApp from './components/InDecisionApp'
 
-const template = <h1 className="display-4">This is JSX from webpack</h1>
-
-ReactDOM.render(template, document.getElementById('app'))
+ReactDOM.render(<InDecisionApp />, document.getElementById('app'))
