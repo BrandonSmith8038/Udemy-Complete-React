@@ -7,7 +7,8 @@
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack --watch",
-    "build-cli": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+    "dev-server": "webpack-dev-server",
+    "dev": "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --hot"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
@@ -19,6 +20,7 @@
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "validator": "8.0.0",
-    "webpack": "3.1.0"
+    "webpack": "3.1.0",
+    "webpack-dev-server": "2.5.1"
   }
 }
