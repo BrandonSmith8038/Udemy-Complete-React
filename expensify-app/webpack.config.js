@@ -27,12 +27,17 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'public'),
-        disableHostCheck: true,
         historyApiFallback: true,
-        hot: true,
-        host: process.env.IP,
-        //https: true,
-        port: process.env.PORT,
-        "public": "https://udemy-complete-react-cowboy8038.c9users.io" //no trailing slash
+        stats: "errors-only",
+        overlay: {
+            errors: true,
+            warnings: true,
+        }
+        // disableHostCheck: true,
+        // hot: true,
+        // host: process.env.IP,
+        // //https: true,
+        // port: process.env.PORT,
+        // "public": "https://udemy-complete-react-cowboy8038.c9users.io" //no trailing slash
     }
 }
