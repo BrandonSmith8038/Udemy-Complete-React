@@ -4,7 +4,7 @@ module.exports = {
     "entry": [
         'webpack-dev-server/client?https://0.0.0.0:8080',
         'webpack/hot/only-dev-server',
-        './src/playground/redux-expensify.js'
+        './src/app.js'
     ],
     output: {
         path: path.join(__dirname, 'public'),
