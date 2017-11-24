@@ -15,17 +15,17 @@ const store = configureStore()
 
 
 store.dispatch(addExpense({ description: 'Water Bill', amount: 500, createdAt: 21000 }))
-store.dispatch(addExpense({ description: 'Gas Bill', amount: 5, createdAt: 1000 }))
+store.dispatch(addExpense({ description: 'Gas Bill', amount: 60000, createdAt: 1000 }))
 store.dispatch(addExpense({ description: 'Internet Bill', amount: 25, createdAt: 3000 }))
 
-console.log(store.getState())
+/*console.log(store.getState())
 
 store.dispatch(setTextFilter('water'))
-//store.dispatch(sortByAmount())
+store.dispatch(sortByAmount())
 
 setTimeout(() => {
     store.dispatch(setTextFilter('bill'))
-}, 3000)
+}, 3000)*/
 
 
 const state = store.getState()
