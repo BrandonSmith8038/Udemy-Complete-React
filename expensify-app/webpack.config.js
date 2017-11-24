@@ -32,12 +32,12 @@ module.exports = {
         overlay: {
             errors: true,
             warnings: true,
-        },
-        disableHostCheck: true,
-        hot: true,
-        host: process.env.IP,
-        //https: true,
-        port: process.env.PORT,
-        "public": "https://udemy-complete-react-cowboy8038.c9users.io" //no trailing slash
+        }
+        // disableHostCheck: true,
+        // hot: true,
+        // host: process.env.IP,
+        // //https: true,
+        // port: process.env.PORT,
+        // "public": "https://udemy-complete-react-cowboy8038.c9users.io" //no trailing slash
     }
 }
