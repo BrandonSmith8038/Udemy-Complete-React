@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
 import { addExpense } from './actions/expenses'
-import { setTextFilter } from './actions/filters'
+import { setTextFilter, sortByAmount } from './actions/filters'
 import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
@@ -21,6 +21,7 @@ store.dispatch(addExpense({ description: 'Internet Bill', amount: 25, createdAt:
 console.log(store.getState())
 
 store.dispatch(setTextFilter('water'))
+//store.dispatch(sortByAmount())
 
 setTimeout(() => {
     store.dispatch(setTextFilter('bill'))
@@ -29,8 +30,7 @@ setTimeout(() => {
 
 const state = store.getState()
 const visibileExpenses = getVisibleExpenses(state.expenses, state.filters)
-console.log("visibleExpenses")
-console.log(visibileExpenses)
+
 
 
 const jsx = (
