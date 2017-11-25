@@ -49,6 +49,7 @@ test('Should set text filter to provide value', () => {
         endDate: moment().endOf('month'),
     })
 })
+
 test('Should set start date filter to provide value', () => {
     const startDate = moment().startOf('month')
     const action = {
