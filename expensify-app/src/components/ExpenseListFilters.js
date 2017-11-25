@@ -1,33 +1,59 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setTextFilter, sortByAmount, sortByDate } from '../actions/filters'
+import { DateRangePicker } from 'react-dates'
+import { setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate } from '../actions/filters'
 
-const ExpenseListFilters = (props) => (
+class ExpenseListFilters extends React.Component {
+    state = {
+        calendarFocused: null
+    }
 
-    <div>
+    onDatesChange = ({ startDate, endDate }) => {
+        this.props.dispatch(setStartDate(startDate))
+        this.props.dispatch(setEndDate(endDate))
+    }
+
+    onFocusChange = (calendarFocused) => {
+        this.setState(() => ({ calendarFocused }))
+    }
+
+    render() {
+        return (
+            <div>
         <input 
             type="text" 
-            defaultValue={props.filters.text} 
+            defaultValue={this.props.filters.text} 
             onChange={(e) => {
-            props.dispatch(setTextFilter(e.target.value))
+            this.props.dispatch(setTextFilter(e.target.value))
         }} 
         />
         <select 
-            defaultValue={props.filters.sortBy} 
+            defaultValue={this.props.filters.sortBy} 
             onChange={(e) => {
             if(e.target.value === 'amount'){
-                props.dispatch(sortByAmount())
+                this.props.dispatch(sortByAmount())
             } else if (e.target.value === 'date'){
-                 props.dispatch(sortByDate())
+                 this.props.dispatch(sortByDate())
             }  
         }}> 
             <option value="date">Date</option>
             <option value="amount">Amount</option>
         </select>
+        <DateRangePicker
+          startDate={this.props.filters.startDate} // momentPropTypes.momentObj or null,
+          endDate={this.props.filters.endDate} // momentPropTypes.momentObj or null,
+          onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
+          focusedInput={this.state.calendarFocused} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={this.onFocusChange} // PropTypes.func.isRequired,
+          showClearDates = {true}
+          numberOfMonths={1}
+          isOutsideRange = {() => false}
+        />
     </div>
+        )
+    }
 
-)
-
+}
 const mapStateToProps = (state) => {
     return {
         filters: state.filters
