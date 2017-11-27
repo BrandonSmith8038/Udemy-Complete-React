@@ -1,7 +1,13 @@
-import { setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate } from '../../actions/filters'
+import {
+    setTextFilter,
+    sortByAmount,
+    sortByDate,
+    setStartDate,
+    setEndDate
+} from '../../actions/filters'
 import moment from 'moment'
 
-test('Shoudld set the text filter with provided value', () => {
+test('Should set the text filter with provided value', () => {
     const text = 'Bill'
     const action = setTextFilter(text)
 

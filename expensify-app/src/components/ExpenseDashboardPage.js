@@ -1,14 +1,12 @@
-import React from 'react'
-import ConnectedExpenseList from './ExpenseList'
-import ExpenseListFilters from './ExpenseListFilters'
-
+import React from 'react';
+import ConnectedExpenseList from './ExpenseList';
+import ExpenseListFilters from './ExpenseListFilters';
 
 const ExpenseDashboardPage = () => (
-    <div>
-        <ExpenseListFilters />
-        <ConnectedExpenseList />
-    </div>
-)
+  <div>
+    <ExpenseListFilters />
+    <ConnectedExpenseList />
+  </div>
+);
 
-
-export default ExpenseDashboardPage
+export default ExpenseDashboardPage;
