@@ -1,5 +1,5 @@
 {
-  "name": "Expensisfy",
+  "name": "expensisfy",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Brandon Smith",
@@ -7,11 +7,14 @@
   "scripts": {
     "test": "jest --config=jest.config.json",
     "serve": "live-server public/",
+    "start": "node server/server.js",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "build": "webpack --watch",
     "dev-server": "webpack-dev-server --hot",
-    "dev": "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --hot"
+    "dev":
+      "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --hot",
+    "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
