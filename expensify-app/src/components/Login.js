@@ -7,9 +7,9 @@ export const Login = ({ startLogin }) => (
 
      <div className="box-layout">
         <div className="box-layout__box">
-            <h1 className="box-layout__title">Expensify App</h1>
+            <h1 className="box-layout__title">Expensify</h1>
             <p>It's Time To Get Your Expenses Under Control</p>
-            <button onClick={startLogin}>Login</button>
+            <button className="button" onClick={startLogin}>Login With Google</button>
         </div>
 
     </div>
