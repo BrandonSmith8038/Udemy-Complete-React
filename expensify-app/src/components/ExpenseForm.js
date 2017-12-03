@@ -59,9 +59,8 @@ export default class ExpenseForm extends React.Component {
   };
   render() {
     return (
-      <div>
-        <p>{this.state.error}</p>
-        <form onSubmit={this.onSubmit}>
+        <form className="form" onSubmit={this.onSubmit}>
+          <p className="form__error">{this.state.error}</p>
           <input
             type="text"
             className="text-input"
@@ -91,9 +90,10 @@ export default class ExpenseForm extends React.Component {
             onChange={this.onNoteChange}
             className="textarea"
           />
-          <button className="button">Add Expense</button>
+          <div>
+            <button className="button button--create">'{this.props.buttonTitle}'</button>
+          </div>
         </form>
-      </div>
     );
   }
 }
